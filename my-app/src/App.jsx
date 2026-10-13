@@ -1,22 +1,23 @@
 import './App.css'
-import { useState } from 'react'
-import Login from './component/login'
-import Logout from './component/logout'
+import { useEffect, useState } from 'react'
 
 function App() {
+  const [count, setCount] = useState(0)
 
-  const [isloggedin,setloggedin]=useState(true);
-  if(isloggedin){
-      return (
-    <Login/>
+  useEffect(() => {
+    alert('I will run when count is updated ')
+  },[count])
+
+  function handleClick() {
+    setCount((currentCount) => currentCount + 1)
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Click me</button>
+      <p>Count is {count}</p>
+    </div>
   )
-  }
-  else{
-    return (
-      <Logout/>
-    )
-  }
- 
 }
 
 export default App
