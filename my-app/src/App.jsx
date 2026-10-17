@@ -1,22 +1,45 @@
 import './App.css'
-import { useEffect, useState } from 'react'
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import Navbar from './component/navbar'
+import Home from './component/home';
+import About from './component/about';
+import Dashboard from './component/dashboard';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    alert('I will run when count is updated ')
-  },[count])
-
-  function handleClick() {
-    setCount((currentCount) => currentCount + 1)
-  }
-//////////////////////////
+function Layout() {
   return (
-    <div>
-      <button onClick={handleClick}>Click me</button>
-      <p>Count is {count}</p>
-    </div>
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  )
+}
+
+const router=createBrowserRouter([
+{
+  path:"/",
+  element:<Layout/>,
+  children: [
+    {
+      index: true,
+      element: <Home />,
+    },
+    {
+      path: "about",
+      element: <About />,
+    },
+    {
+      path: "dashboard",
+      element: <Dashboard />,
+    },
+  ],
+}
+]);
+function App() {
+  
+  return (
+   <div>
+   <RouterProvider router={router} />
+   </div>
   )
 }
 
